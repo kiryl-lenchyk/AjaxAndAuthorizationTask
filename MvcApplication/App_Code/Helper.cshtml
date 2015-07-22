@@ -1,0 +1,23 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Ajax
+@helper JsonPaginationLink(AjaxHelper ajax,string linkText, string actionName, string updateTargetId, int pageNumber)
+{
+    @ajax.ActionLink(linkText, actionName, new { page = pageNumber },
+        new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = updateTargetId,
+        })
+}
+
+@helper JsonPaginationLinkNoPartial(AjaxHelper ajax, string linkText, string actionName, string onSuccess, int pageNumber, object htmlAttribues)
+{
+    @ajax.ActionLink(linkText, actionName, new { page = pageNumber} ,
+        new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            OnSuccess = onSuccess,
+        },
+        htmlAttribues)
+}

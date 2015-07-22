@@ -1,0 +1,166 @@
+﻿body {
+    margin: 0.6em auto;
+    width: 60em;
+    position: relative;
+}
+
+img#logo {
+    float: left;
+    width: 120px;
+    height: 60px;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 0 0 0 0;
+    font-family: "Arial";
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0 0 0 5px;
+    text-align: center;
+}
+
+header {
+    background: lightgray;
+}
+
+ul.menu {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    
+}
+
+ul {
+    list-style-type: none;
+}
+
+nav {
+    display: inline-block;
+    background: gray;
+    width: 100%;
+}
+
+a.horisontal-menu {
+}
+
+a.vertical-menu {
+    width: 120px;
+}
+
+
+li.vertical-menu {
+    display: block;
+}
+
+a.menu {
+     float: left;
+    text-decoration: none;
+    color: white;
+    padding: 0.2em 0.6em;
+    margin: 5px 5px 5px 5px;
+}
+
+a.menu:hover {
+    background-color: lightgray;
+}
+
+li.horisontal-menu {
+    display: inline;
+}
+
+aside {
+    display: inline-block;
+    background: gray;
+    margin-top: 10px;
+    float: left;
+}
+
+section.content
+{
+    display:inline-block;
+    width:80%;
+    margin: 10px;
+    padding: 0px 10px 10px 10px;
+    z-index: 0;
+    position: absolute;
+}
+
+textarea {
+    width: 97%;
+    min-height: 75px;
+    resize: vertical;
+}
+
+button {
+    width: 100px;
+    height: 30px; 
+}
+
+div.login {
+    float: right;
+    margin-right: 20px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+#logout-form {
+    display: inline;
+}
+
+.login-window {
+    overflow:hidden;
+    position:relative;
+    float: right;
+    top: -37px;
+    border: solid 1px;
+    display: block;
+    z-index: 100;
+    padding: 10px;
+    background: #f0f8ff;
+    width: 170px;   
+    -webkit-animation: mymove 0.3s 1;
+    animation: mymove 0.3s 1;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    border-radius: 2px; 
+}
+
+div.close-button {
+    float: right;
+    display: block;
+}
+
+button.close-button {
+    width: 20px;
+    height: 20px;
+}
+
+.login-window-header {
+    display: inline;
+}
+
+.error {
+    color: red;
+}
+
+button.link {
+    background: none !important;
+    border: none;
+    font: inherit;
+    width: auto !important;
+    height: auto !important;
+    cursor: pointer;
+}
+
+@keyframes mymove {
+    from {height: 0px;}
+    to {height: 185px;}
+}

@@ -1,0 +1,40 @@
+﻿@model MvcApplication.ViewModels.JsonActionPageViewModel
+
+@{
+    ViewBag.Title = "JsonActionPartial";
+}
+
+
+@section Scripts
+{
+    <script src="~/Scripts/contacts-load.js" type="text/javascript"></script>
+}
+
+
+<h2>JsonAction Partial</h2>
+<div id="page">
+    @Html.Partial("_AjaxActionPage", Model)
+</div>
+
+<h4>Comments</h4>
+<ul id="comments">
+    @foreach (string comment in Model.Comments)
+    {
+        @Html.Partial("_Comment", comment)
+    }
+</ul> 
+
+@using (Ajax.BeginForm("AddComment", new AjaxOptions
+{
+    HttpMethod = "Post",
+    InsertionMode = InsertionMode.InsertAfter,
+    UpdateTargetId = "comments"
+}))
+{
+    <div>
+        @Html.TextArea("comment")
+    </div>
+    <div>
+        <button type="submit">Add</button>
+    </div>
+}

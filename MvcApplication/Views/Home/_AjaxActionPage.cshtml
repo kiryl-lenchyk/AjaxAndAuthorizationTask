@@ -1,0 +1,41 @@
+﻿@using MvcApplication.Models
+@model MvcApplication.ViewModels.JsonActionPageViewModel
+
+
+<ul id="contacts">
+    @if (ViewBag.Error != null)
+    {
+        <li class="error">@ViewBag.Error</li>
+    }
+
+    @foreach (Contact contact in Model.Contacts)
+    {
+        <li><b>@contact.Name @contact.Surname</b> age: @contact.Age location: @contact.Address.Country, @contact.Address.City</li>
+    }
+</ul>
+
+
+<div id="paginator">
+    @if (Model.PageNumber > 1)
+    {
+        @Helper.JsonPaginationLink(Ajax, "<<", "JsonActionPartial", "page", Model.PageNumber - 1)
+    }
+    @for (int i = 1; i <= Model.PagesCount; i++)
+    {
+        if (Model.PageNumber != i)
+        {
+             @Helper.JsonPaginationLink(Ajax, i.ToString(), "JsonActionPartial", "page", i)@: |
+        }
+        else
+        {
+            <b>@i.ToString()</b>@: |
+        }
+    }
+    @if (Model.PageNumber < Model.PagesCount)
+    {
+         @Helper.JsonPaginationLink(Ajax, ">>", "JsonActionPartial", "page", Model.PageNumber + 1)
+    }
+</div>
+
+
+

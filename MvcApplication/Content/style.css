@@ -1,0 +1,32 @@
+﻿.hiden {
+    display: none;
+}
+
+.show {
+    display: inline;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+a.nolink {
+    pointer-events: none;
+   cursor: default;
+}
+
+#paginator {
+      text-align: center;
+    margin: 5px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+

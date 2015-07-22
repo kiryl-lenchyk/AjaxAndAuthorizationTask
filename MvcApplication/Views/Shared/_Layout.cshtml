@@ -1,0 +1,136 @@
+﻿@using MvcApplication.Models
+@using MvcApplication.ViewModels
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/style.css"/>
+</head>
+<body>
+<header>
+    <img id="logo" src="~/Content/logo.svg"/>
+    <h1>EPAM .NET Lab Trening</h1>
+    <h1>Lenchyk Kiryl</h1>
+    <div class="login">
+
+        <div id="loginned" class="@(Request.IsAuthenticated ? "" : "hiden" )">
+            Hi, <span id ="user-name">@(User == null ? "" : User.FirstName)</span> |
+            @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new {id = "logout-form"}))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="link">Log off</button>
+            }
+        </div>
+        <div id="not-loginned" class="@(Request.IsAuthenticated ? "hiden" : "" )">
+            @Html.ActionLink("Register", "Register", "Account") |
+            @Html.ActionLink("Login", "Login", "Account", new {returnUrl = Request.Url.LocalPath}, new {id = "login-button", onclick = "showLogin()"})
+        </div>
+    </div>
+    <nav>
+        <ul class="menu">
+            <li class="horisontal-menu">@Html.ActionLink("About Me", "Index", "Home", null, new { @class = "horisontal-menu menu" }) </li>
+            <li class="horisontal-menu">@Html.ActionLink("JSON Partial View", "JsonActionPartial", "Home", null, new { @class = "horisontal-menu menu" }) </li>
+            <li class="horisontal-menu">@Html.ActionLink("JSON Java Script", "JsonActionJavaScript", "Home", null, new { @class = "horisontal-menu menu" }) </li>
+            <li class="horisontal-menu">@Html.ActionLink("Autorised action", "AutorisedAction", "Home", null, new { @class = "horisontal-menu menu" }) </li>
+        </ul>
+    </nav>
+
+</header>
+
+<aside>
+    <ul class="menu">
+        <li class="vertical-menu">@Html.ActionLink("About Me", "Index", "Home",null, new {@class = "vertical-menu menu"}) </li>
+        <li class="vertical-menu">@Html.ActionLink("JSON Partial View", "JsonActionPartial", "Home", null, new { @class = "vertical-menu menu" }) </li>
+        <li class="vertical-menu">@Html.ActionLink("JSON Java Script", "JsonActionJavaScript", "Home", null, new { @class = "vertical-menu menu" }) </li>
+        <li class="vertical-menu">@Html.ActionLink("Autorised action", "AutorisedAction", "Home", null, new { @class = "vertical-menu menu" }) </li>
+    </ul>
+</aside>
+
+<div class="login-window hiden">
+    <div class="close-button">
+        <button class="close-button" onclick=" closeLogin() ">X</button>
+    </div>
+    @Html.Partial("_Login", new LoginViewModel())
+</div>
+<section class="content">
+
+
+    <div >
+        @RenderBody()
+    </div>
+
+
+</section>
+
+
+<script src="~/Scripts/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
+<script language="javascript">
+    function loginSuccess(data) {
+        closeLogin();
+        $('#loginned').removeClass('hiden');
+        $('#not-loginned').addClass('hiden');
+        $('#user-name').html(data.userName);
+    }
+
+    $(document).ready(function () {
+        $("#login-form").submit(function () {
+            event.preventDefault();
+            var url = this.action;
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                success: function (data) {
+                    if (data.successLogined) {
+                        loginSuccess(data);
+                    } else {
+                        $('#validation').html(data.error);
+                    }
+
+                }
+            });
+        });
+
+        $("#logout-form").submit(function () {
+            event.preventDefault();
+            var url = this.action;
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                success: function (data) {
+                    if (data.successLogouted) {
+                        $('#not-loginned').removeClass('hiden');
+                        $('#loginned').addClass('hiden');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+@RenderSection("Scripts", required: false)
+
+<script language="javascript">
+    function showLogin() {
+        event.preventDefault();
+        $(".login-window").removeClass('hiden');
+    }
+
+    function closeLogin() {
+        $(".login-window").addClass('hiden');
+    }
+
+    
+
+
+</script>
+</body>
+</html>
